@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="section">    
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                 {% for yard_sale in yardsales %}
+                 <p>yard_sale.seller_first_name</p>
+                 <p>yard_sale.seller_last_name</p>
+                 {% endfor %}   
+                </div>
+            </div>   
+        </div> 
+    </div> 
+{% endblock %}       

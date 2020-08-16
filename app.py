@@ -19,12 +19,12 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+@app.route('/get_yardsales',  methods=["GET", "POST"])
+def get_yardsales():
+    yardsales = mongo.db.yard_sales.find()
+    categories = mongo.db.categories.find()
 
-
-if __name__ == "__main__":
-    app.run()
+    return render_template('getyardsales.html', yardsales=yardsales, categories=categories)
 
 
 if __name__ == '__main__':
