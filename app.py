@@ -61,13 +61,14 @@ def get_yardsales():
                 if mongo.db.yard_sales.find({'zip': yardsale_cityorzip}).count() > 0:
                     searchcriteriadict['zip'] = yardsale_cityorzip
 
+
         yardsale_items = request.form.get('itemsearch')
         if yardsale_items != "":
             searchcriteriadict['item_list'] = {'$in': [yardsale_items]}
-
+         
         search_results = mongo.db.yard_sales.find(searchcriteriadict)
 
-        return render_template('getyardsales.html', yardsales=search_results, categories=categories)
+        return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key= google_key)
 
     else:
         return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key= google_key)
