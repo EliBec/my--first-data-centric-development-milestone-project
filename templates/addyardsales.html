@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="section">    
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h2 class="page-heading-title">Add your Yard Sale</h2>                   
+                </div>
+            </div> 
+        </div> 
+        <div class="add-yardsale-form-wrap">
+        <div class="row">
+            <form action ="#" class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate">
+                        <label class="label" for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label class="label" for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="email" type="email" class="validate">
+                        <label class="label" for="email">Email</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">phone</i>
+                        <input id="telephone" type="tel" class="validate">
+                        <label class="label" for="telephone">Telephone</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                    <input id="address1" type="text" class="validate">
+                    <label class="label" for="address_1">Address Line 1</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                    <input id="address2" type="text" class="validate">
+                    <label class="label" for="address_2">Address Line 2</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                    <input id="city" type="text" class="validate">
+                    <label class="label" for="city">City</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                    <input id="state" type="text" class="validate">
+                    <label class="label" for="state">State</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label class="label" style="font-size: 1rem;" for="countrycode"> Country: </label>
+                            <select name="countrycode" class="form-control" id="countrycode">
+                            <option value=""></option>
+                            <option value="All">All</option>
+                            {% for country in countries %}
+                            <option value="{{country.code}}">{{country.code}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>              
+                    <label class="label" style="font-size: 1rem;" > Choose Yard Sale Type: </label>
+                    <br>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="garagetype"  />
+                        <label style = "color: #26a69a;" for="garagetype">Garage</label>
+                    </p> 
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="statetype"  />
+                        <label style = "color: #26a69a;" for="statetype">State</label>
+                    </p>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="communitytype"  />
+                        <label style = "color: #26a69a;" for="communitytype">Community</label>
+                    </p> 
+                </div>    
+                <br>
+                <div class = "row">
+                    <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale</label>
+                    <input type="date" class="datepicker" id="saledate" name="saledate" for="saledate">
+                </div>
+                <div class = "row">
+                    <label class="label" style="font-size: 1rem;"> Pick an ending time for your yard </label>
+                    <input type="time" id="saletime" name="saletime" for="saletime">
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="itemlist" class="materialize-textarea"></textarea>
+                        <label class="label" for="itemlist">List of items</label>
+                    </div>
+                </div>  
+            </form>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12"></div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <button type="Submit" id="add-sale-btn" class="btn btn-secondary">Add Yard Sale</button>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <button type="button" id="clear-all-btn" class="btn btn-secondary">Clear All</button>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12"></div>
+        </div>
+        </div>
+    </div>           
+{% endblock %}

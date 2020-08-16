@@ -76,7 +76,8 @@ def get_yardsales():
 
 @app.route('/add_yardsales')
 def add_yardsales():
-    return render_template('addyardsales.html')
+    countries = mongo.db.countries.find() 
+    return render_template('addyardsales.html', countries=countries)
 
 
 @app.route('/updatedelete_yardsales')
