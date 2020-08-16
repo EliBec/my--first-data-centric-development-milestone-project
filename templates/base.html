@@ -79,5 +79,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>  
         <!-- Materialize js below download had to be places after (never before) Bootstrap's download. Otherwise, Materialize does not work. Maybe some conflict between the two is the cause -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> 
+        <!-- Custom local js file -->
+        <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
+
 </body>
 </html>

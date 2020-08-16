@@ -4,12 +4,85 @@
         <div class="section">    
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
-                 {% for yard_sale in yardsales %}
-                 <p>yard_sale.seller_first_name</p>
-                 <p>yard_sale.seller_last_name</p>
-                 {% endfor %}   
+                    <p>Output: some paragraph</p>
                 </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <nav class="#7c4dff deep-purple accent-2"> 
+                        <div class="nav-wrapper">
+                            <form>
+                                <div class="input-field">
+                                    <input id="search" type="search" required>
+                                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                    <i class="material-icons">close</i>
+                                </div>
+                            </form>
+                        </div>
+                    </nav>
+                </div>  
             </div>   
         </div> 
-    </div> 
-{% endblock %}       
+        <br>  
+        <div class="row">
+            <form id="search-form" action="/get_yardsales" method="POST">
+                <div class="row"> 
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label style="padding-bottom:13px;" for="categorysearch"> Yard Sale Type: </label>
+                            <select name="categorysearch" class="form-control" id="categorysearch">
+                            <option value=""></option>
+                            <option value="All">All</option>
+                            {% for cat in categories %}
+                            <option value="{{cat.category_name}}">{{cat.category_name}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="datesearch"> Search by date:</label>
+                        <input type="date" id="datesearch" name="datesearch" >
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="cityorzipsearch">Search by City or Zip Code:</label>
+                        <input type="search" id="cityorzipsearch" name="cityorzipsearch">
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="itemsearch">Search by Item:</label>
+                        <input type="search" id="itemsearch" name="itemsearch"> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <button type="Submit" id="search-btn" class="btn btn-secondary">Search Yard Sales</button>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <button type="button" id="clearsearch-btn" class="btn btn-secondary"> Clear Search</button>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    </div>
+                </div>
+            </form> 
+        </div>       
+        <br>     
+        <div class="row">
+            {% for yard_sale in yardsales %}
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p>Date: {{yard_sale.date}} - Time: {{yard_sale.time}} - City: {{yard_sale.city}}</p>
+                    <p> {{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
+                    <p> {{yard_sale.seller_email}} </p>
+                    {{ yard_sale.item_list|join(', ') }}
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6"> 
+                        <div class="map" id="map_{{ yard_sale._id }}">
+                            <iframe width="100%" height="200" frameborder="0" style="border:0"
+                                    title="Map of {{ yard_sale.seller_first_name}}, {{ yard_sale.seller_last_name }}"
+                                    src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ yard_sale.location }}&center={{ yard_sale.lat }},{{ yard_sale.long }}&zoom=16">
+                            </iframe>
+                        </div>
+                    <br>    
+                </div>  
+            {% endfor %}   
+        </div>
+    </div>    
+{% endblock %}
