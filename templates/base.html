@@ -5,6 +5,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- custom css file directory -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}" type="text/css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <!-- Bootstrap's Font Awesome -->
@@ -14,10 +16,68 @@
 </head>
 <body>
     <header>
+        <div class="menu-style">
+            <!-- Dropdown Structure -->
+            <ul id="dropdown1" class="dropdown-content">
+                <li><a href="{{url_for('add_yardsales')}}">Add</a></li>
+                <li><a href="{{url_for('updatedelete_yardsales')}}">Update/Delete</a></li>
+            </ul>
+            <nav class="#6200ea deep-purple accent-4 top-nav">
+                <div class="nav-wrapper container nav-font-style">
+                    <a  href="{{url_for('get_yardsales')}}" class="brand-logo">
+                        <i id="logo-container" class="material-icons main-logo">local_offer</i>
+                    </a>
+                    <a href="{{url_for('get_yardsales')}}">
+                        <span class="brand-title">Whatcha Selling </span>
+                    </a>
+                    <ul class="right hide-on-med-and-down" style="padding-top:8.5px;">
+                        <li><a href="{{url_for('about')}}">About</a></li>
+                        <li><a href="{{url_for('contact_us')}}">Contact us</a></li>
+                        <!-- Dropdown Trigger -->
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Manage Yard Sale<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
     {% block content %}
     {% endblock %}
-    <footer>
+    <footer class="page-footer #6200ea deep-purple accent-4">
+        <div class="container">
+            <div class="row">
+                <div class="col s6">
+                    <h3 class="footer-social-text footer-font-style">Spread the word...</h3>
+                </div>
+                <div class="col s6">
+                    <div id="social-media">
+                        <a href="#" class="social-icon" target="_blank">
+                            <img src="static/images/facebook.png" alt="Facebook logo link to our Facebook page">
+                        </a>
+                        <a href="#" target="_blank">
+                            <img class="social-icon" src="static/images/twitter.png" alt="Twitter logo link to our Twitter page">
+                        </a>
+                        <a href="#" target="_blank">
+                            <img  class="social-icon" src="static/images/instagram.png" alt="Instagram logo link to our Instagram page">
+                        </a>
+                        <a href="#"  class="social-icon" target="_blank">
+                            <img src="static/images/youtube.png" alt="Youtube logo link to our Youtube video">
+                        </a>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container" style="text-align:center">© 2020 by Eliana Beckinsale. All rights reserved.
+            </div>
+        </div>
     </footer>
+     <!--Import jQuery before any third-party js-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <!-- Popper js -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <!-- Bootstrap js via CDN download -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>  
+        <!-- Materialize js below download had to be places after (never before) Bootstrap's download. Otherwise, Materialize does not work. Maybe some conflict between the two is the cause -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> 
 </body>
 </html>

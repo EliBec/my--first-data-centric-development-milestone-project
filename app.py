@@ -27,6 +27,26 @@ def get_yardsales():
     return render_template('getyardsales.html', yardsales=yardsales, categories=categories)
 
 
+@app.route('/add_yardsales')
+def add_yardsales():
+    return render_template('addyardsales.html')
+
+
+@app.route('/updatedelete_yardsales')
+def updatedelete_yardsales():
+    return render_template('updatedeleteyardsales.html')
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/contact_us')
+def contact_us():
+    return render_template('contact_us.html')
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
