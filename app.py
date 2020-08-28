@@ -1,4 +1,6 @@
 import os
+import requests
+import time
 from os import path
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
@@ -11,7 +13,7 @@ app = Flask(__name__)
 # Initialize the extension
 GoogleMaps(app)
 
-# import env.py 
+# import env.py
 if path.exists('env.py'):
     import env
 
@@ -32,7 +34,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route('/get_yardsales',  methods=["GET", "POST"])
 def get_yardsales():
-    yardsales = mongo.db.yard_sales.find() 
+    yardsales = mongo.db.yard_sales.find()
     categories = mongo.db.categories.find()
 
     # declare dictionary
@@ -43,7 +45,7 @@ def get_yardsales():
         yardsale_cat = request.form.get('categorysearch')
         if yardsale_cat != "":
             if yardsale_cat == "All":
-                searchcriteriadict['category'] = {'$in': ['Estate', 'Local', 'Community']}
+                searchcriteriadict['category'] = {'$in': ['Estate', 'Garage', 'Community']}
             else:
                 searchcriteriadict['category'] = yardsale_cat
 
@@ -74,10 +76,91 @@ def get_yardsales():
         return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key= google_key)
 
 
-@app.route('/add_yardsales')
+@app.route('/add_yardsales', methods=["GET", "POST"])
 def add_yardsales():
-    countries = mongo.db.countries.find() 
+    countries = mongo.db.countries.find()
+
     return render_template('addyardsales.html', countries=countries)
+
+
+@app.route('/insert_yardsale', methods=["GET", "POST"])
+def insert_yardsale():
+    # first find/fetch yard_sale collection object
+    yardsales = mongo.db.yard_sales
+
+    # retrieve address from form 
+    address_1 = request.form.get('address1')
+    address_2 = request.form.get('address2')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zip = request.form.get('zip')
+
+    full_addr = address_1 +  address_2 + " " + city + " " + state + " " + zip
+
+    google_coor = google_get_coord(full_addr)
+    print(google_coor)
+    #addr_long = google_get_goelong(full_addr)
+
+    addr_lat = google_coor[0]
+    print(addr_lat)
+
+    addr_long = google_coor[1]
+    print(addr_long)
+
+    yardsales.insert_one({
+            'seller_first_name': request.form.get('first_name'),
+            'seller_last_name': request.form.get('last_name'),
+            'seller_email': request.form.get('email'),
+            'item_list': request.form.getlist('itemlist'),
+            'date': request.form.get('saledate'),
+            'time': request.form.get('saletime'),
+            'category': request.form.get('saletype'),
+            'address_1': request.form.get('address1'),
+            'city': request.form.get('city'),
+            'state': request.form.get('state'),
+            'country_code': request.form.get('countrycode'),
+            'zip': request.form.get('zip'),
+            'lat': addr_lat,
+            'long': addr_long
+        })
+
+    return redirect(url_for('get_yardsales'))
+
+
+# getting coordinates
+def google_get_goelat(full_addr):
+    print(full_addr)
+    # get coords for mapping
+    search_payload = {"key": google_key, "query": full_addr}
+    search_req = requests.get(googlemap_search_url, search_payload)
+    # make sure the page is reachable
+    # print(search_req.status_code)
+    search_json = search_req.json()
+    print(search_json)
+    time.sleep(.3)
+    latitude = search_json["results"][0]["geometry"]["location"]["lat"]
+    print(latitude)
+
+    return latitude
+
+
+# getting coordinates
+def google_get_coord(full_addr):
+
+    #print(full_addr)
+    # get coords for mapping
+    search_payload = {"key": google_key, "query": full_addr}
+    search_req = requests.get(googlemap_search_url, search_payload)
+    # make sure the page is reachable
+    # print(search_req.status_code)
+    search_json = search_req.json()
+    time.sleep(.3)
+    latitude = search_json["results"][0]["geometry"]["location"]["lat"]
+    longitude = search_json["results"][0]["geometry"]["location"]["lng"]  
+    coordinates = [latitude, longitude,]
+    print(coordinates)
+
+    return coordinates
 
 
 @app.route('/updatedelete_yardsales')
