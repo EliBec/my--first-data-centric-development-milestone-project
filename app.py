@@ -56,18 +56,17 @@ def get_yardsales():
         # value in form "cityorzip" is either the zip code or city
         yardsale_cityorzip = request.form.get('cityorzipsearch')
         if yardsale_cityorzip != "":
-            # check if there is matching document where form's value is equal to city. If no document is found, then add to dictionary. Otherwise,perform same search and action but for zip
+            # check if there is matching document where form's value is equal to city. If found, then add to dictionary. Else, perform same search and action but for zip code
             if mongo.db.yard_sales.find({'city': yardsale_cityorzip}).count() > 0:
                 searchcriteriadict['city'] = yardsale_cityorzip
             else:
                 if mongo.db.yard_sales.find({'zip': yardsale_cityorzip}).count() > 0:
                     searchcriteriadict['zip'] = yardsale_cityorzip
 
-
         yardsale_items = request.form.get('itemsearch')
         if yardsale_items != "":
             searchcriteriadict['item_list'] = {'$in': [yardsale_items]}
-         
+
         search_results = mongo.db.yard_sales.find(searchcriteriadict)
 
         return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key= google_key)
@@ -76,6 +75,7 @@ def get_yardsales():
         return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key= google_key)
 
 
+# route for the Add Yard Sales page (addyardsales.html)
 @app.route('/add_yardsales', methods=["GET", "POST"])
 def add_yardsales():
     countries = mongo.db.countries.find()
@@ -83,12 +83,13 @@ def add_yardsales():
     return render_template('addyardsales.html', countries=countries)
 
 
+# request addyardsales.html's form and insert it to the 'yard_sales' collection
 @app.route('/insert_yardsale', methods=["GET", "POST"])
 def insert_yardsale():
     # first find/fetch yard_sale collection object
     yardsales = mongo.db.yard_sales
 
-    # retrieve address from form 
+    # retrieve address from form in addyardsales.html
     address_1 = request.form.get('address1')
     address_2 = request.form.get('address2')
     city = request.form.get('city')
@@ -97,9 +98,9 @@ def insert_yardsale():
 
     full_addr = address_1 +  address_2 + " " + city + " " + state + " " + zip
 
-    google_coor = google_get_coord(full_addr)
+    # pass in the address (to get_google_coord) for which google coordinates are fetch from API's JSON
+    google_coor = get_google_coord(full_addr)
     print(google_coor)
-    #addr_long = google_get_goelong(full_addr)
 
     addr_lat = google_coor[0]
     print(addr_lat)
@@ -128,27 +129,7 @@ def insert_yardsale():
 
 
 # getting coordinates
-def google_get_goelat(full_addr):
-    print(full_addr)
-    # get coords for mapping
-    search_payload = {"key": google_key, "query": full_addr}
-    search_req = requests.get(googlemap_search_url, search_payload)
-    # make sure the page is reachable
-    # print(search_req.status_code)
-    search_json = search_req.json()
-    print(search_json)
-    time.sleep(.3)
-    latitude = search_json["results"][0]["geometry"]["location"]["lat"]
-    print(latitude)
-
-    return latitude
-
-
-# getting coordinates
-def google_get_coord(full_addr):
-
-    #print(full_addr)
-    # get coords for mapping
+def get_google_coord(full_addr):
     search_payload = {"key": google_key, "query": full_addr}
     search_req = requests.get(googlemap_search_url, search_payload)
     # make sure the page is reachable
@@ -163,9 +144,32 @@ def google_get_coord(full_addr):
     return coordinates
 
 
-@app.route('/updatedelete_yardsales')
+@app.route('/updatedelete_yardsales', methods=["GET", "POST"])
 def updatedelete_yardsales():
-    return render_template('updatedeleteyardsales.html')
+    yardsales = mongo.db.yard_sales.find()
+
+    # declare dictionary
+    searchdict = {}
+
+    if request.method == "POST":
+        # if  form's returned value is not empty then add to dictionary
+        yardsale_date = request.form.get('datesearch')
+        if yardsale_date != "":
+            searchdict['date'] = yardsale_date
+
+        yardsale_sellername = request.form.get('namesearch')
+        if yardsale_sellername != "":
+            yardsale_name_dict = yardsale_sellername.split()
+            # print(yardsale_name_dict[1])
+            searchdict['seller_first_name'] = yardsale_name_dict[0]
+            searchdict['seller_last_name'] = yardsale_name_dict[1]
+
+        search_results = mongo.db.yard_sales.find(searchdict)
+
+        return render_template('updatedeleteyardsales.html', yardsales=search_results, google_key= google_key)
+
+    else:
+        return render_template('updatedeleteyardsales.html')
 
 
 @app.route('/about')
