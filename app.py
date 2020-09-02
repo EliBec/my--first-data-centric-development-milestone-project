@@ -96,7 +96,7 @@ def insert_yardsale():
     state = request.form.get('state')
     zip = request.form.get('zip')
 
-    full_addr = address_1 +  address_2 + " " + city + " " + state + " " + zip
+    full_addr = address_1 + address_2 + " " + city + " " + state + " " + zip
 
     # pass in the address (to get_google_coord) for which google coordinates are fetch from API's JSON
     google_coor = get_google_coord(full_addr)
@@ -138,7 +138,7 @@ def get_google_coord(full_addr):
     time.sleep(.3)
     latitude = search_json["results"][0]["geometry"]["location"]["lat"]
     longitude = search_json["results"][0]["geometry"]["location"]["lng"]  
-    coordinates = [latitude, longitude,]
+    coordinates = [latitude, longitude]
     print(coordinates)
 
     return coordinates
@@ -146,7 +146,6 @@ def get_google_coord(full_addr):
 
 @app.route('/updatedelete_yardsales', methods=["GET", "POST"])
 def updatedelete_yardsales():
-    yardsales = mongo.db.yard_sales.find()
 
     # declare dictionary
     searchdict = {}
@@ -170,6 +169,67 @@ def updatedelete_yardsales():
 
     else:
         return render_template('updatedeleteyardsales.html')
+
+
+@app.route('/update_yardsale/<yardsale_id>', methods=["GET", "POST"])
+def update_yardsale(yardsale_id):
+    countries = mongo.db.countries.find()
+    # fetch yardsale based on its id key
+    yardsale_upd = mongo.db.yard_sales.find_one({'_id': ObjectId(yardsale_id)})
+    return render_template('updateyardsale.html', countries=countries, yardsale_upd=yardsale_upd, google_key= google_key)
+
+
+#save updated changes to the database's yard_sales collection
+@app.route('/save_yardsale/<yardsale_id>', methods=["GET", "POST"])
+def save_yardsale(yardsale_id):
+    yardsales = mongo.db.yard_sales
+
+    # retrieve address from form in addyardsales.html
+    address_1 = request.form.get('address1')
+    address_2 = request.form.get('address2')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zip = request.form.get('zip')
+
+    full_addr = address_1 + address_2 + " " + city + " " + state + " " + zip
+
+    # pass in the address (to get_google_coord) for which google coordinates are fetch from API's JSON
+    google_coor = get_google_coord(full_addr)
+    print(google_coor)
+
+    addr_lat = google_coor[0]
+    print(addr_lat)
+
+    addr_long = google_coor[1]
+    print(addr_long)
+
+    yardsales.update({'_id':ObjectId(recipe_id)},
+
+        {
+            'seller_first_name': request.form.get('first_name'),
+            'seller_last_name': request.form.get('last_name'),
+            'seller_email': request.form.get('email'),
+            'item_list': request.form.getlist('itemlist'),
+            'date': request.form.get('saledate'),
+            'time': request.form.get('saletime'),
+            'category': request.form.get('saletype'),
+            'address_1': request.form.get('address1'),
+            'city': request.form.get('city'),
+            'state': request.form.get('state'),
+            'country_code': request.form.get('countrycode'),
+            'zip': request.form.get('zip'),
+            'lat': addr_lat,
+            'long': addr_long
+        })
+
+    return render_template(url_for('get_yardsales'))
+
+
+
+@app.route('/delete_yardsale/<yardsale_id>')
+def delete_yardsale(yardsale_id):
+    mongo.db.yard_sales.remove({'_id':ObjectId(yardsale_id)})
+    return render_template('getyardsales.html')
 
 
 @app.route('/about')
