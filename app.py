@@ -69,10 +69,10 @@ def get_yardsales():
 
         search_results = mongo.db.yard_sales.find(searchcriteriadict)
 
-        return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key= google_key)
+        return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key=google_key)
 
     else:
-        return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key= google_key)
+        return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key=google_key)
 
 
 # route for the Add Yard Sales page (addyardsales.html)
@@ -98,7 +98,7 @@ def insert_yardsale():
 
     full_addr = address_1 + address_2 + " " + city + " " + state + " " + zip
 
-    # pass in the address (to get_google_coord) for which google coordinates are fetch from API's JSON
+    # pass in the address (to get_google_coord) for which google coordinates are fetched from API's JSON
     google_coor = get_google_coord(full_addr)
     print(google_coor)
 
@@ -171,17 +171,17 @@ def updatedelete_yardsales():
         return render_template('updatedeleteyardsales.html')
 
 
-@app.route('/update_yardsale/<yardsale_id>', methods=["GET", "POST"])
-def update_yardsale(yardsale_id):
+@app.route('/update_yardsale/<yardsale_id>/<record_mode>')
+def update_yardsale(yardsale_id, record_mode):
     countries = mongo.db.countries.find()
     # fetch yardsale based on its id key
     yardsale_upd = mongo.db.yard_sales.find_one({'_id': ObjectId(yardsale_id)})
-    return render_template('updateyardsale.html', countries=countries, yardsale_upd=yardsale_upd, google_key= google_key)
+    return render_template('updateyardsale.html', countries=countries, yardsale_upd=yardsale_upd, google_key= google_key, record_mode=record_mode)
 
 
-#save updated changes to the database's yard_sales collection
-@app.route('/save_yardsale/<yardsale_id>', methods=["GET", "POST"])
-def save_yardsale(yardsale_id):
+# save updated changes to the database's yard_sales collection
+@app.route('/save_yardsale/<yardsale_id>/<record_mode>', methods=["GET", "POST"])
+def save_yardsale(yardsale_id, record_mode):
     yardsales = mongo.db.yard_sales
 
     # retrieve address from form in addyardsales.html
@@ -203,7 +203,7 @@ def save_yardsale(yardsale_id):
     addr_long = google_coor[1]
     print(addr_long)
 
-    yardsales.update({'_id':ObjectId(recipe_id)},
+    yardsales.update({'_id': ObjectId(yardsale_id)},
 
         {
             'seller_first_name': request.form.get('first_name'),
@@ -222,14 +222,16 @@ def save_yardsale(yardsale_id):
             'long': addr_long
         })
 
-    return render_template(url_for('get_yardsales'))
+    record_mode = 'updated'
 
+    return render_template('updatedeleteyardsales.html', record_mode=record_mode)
 
-
-@app.route('/delete_yardsale/<yardsale_id>')
+@app.route('/delete_yardsale/<yardsale_id>/record_mode')
 def delete_yardsale(yardsale_id):
     mongo.db.yard_sales.remove({'_id':ObjectId(yardsale_id)})
-    return render_template('getyardsales.html')
+
+    record_mode = 'deleted'
+    return render_template('updatedeleteyardsales.html', record_mode=record_mode)
 
 
 @app.route('/about')

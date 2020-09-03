@@ -7,9 +7,24 @@
                     <h2 class="page-heading-title">Update/Delete Yard Sale</h2> 
                 </div>
             </div>
+
+            {% if record_mode == "updated" %}
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                Yard Sale Has Been Updated!
+                </div>
+            </div>
+            {% elif record_mode == "deleted" %}
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                Yard Sale Has Been Deleted!
+                </div>
+            </div>
+            {% else %} 
             <div class="col-lg-8 col-md-8 col-sm-12">
                 Search the yard sale you wish to update or delete
             </div>
+            {% endif %}  
         </div> 
         <div class="row">
             <form id="search-form" action="/updatedelete_yardsales" method="POST">
@@ -38,7 +53,6 @@
                     <p> {{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
                     <p> {{yard_sale.seller_email}} </p>
                     {{ yard_sale.item_list|join(', ') }}
-                    <p>{{yard_sale._id}}</p>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                     <div class="map" id="map_{{ yard_sale._id }}">
@@ -47,16 +61,15 @@
                     </div>
                     <br>    
                 </div> 
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
+                <a class="btn btn-primary edit-btn" href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_mode='upd')}}" >Edit</a>
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
-                    <a class="btn btn-primary edit-btn" href="{{url_for('update_yardsale', yardsale_id=yard_sale._id)}}" >Edit</a>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
-                    <a  href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id)}}" class="btn btn-primary btn-delete">Delete</a>
-                </div>
-            </div>    
-            {% endfor %} 
-        </div>   
-    </div>    
+            <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
+                <a  href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_mode='delete')}}" class="btn btn-primary btn-delete">Delete</a>
+            </div>
+        </div>    
+    {% endfor %} 
+    </div>      
 {% endblock %}
