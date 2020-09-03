@@ -47,4 +47,28 @@ $(document).ready(function(){
     $(".remove-input-btn").on("click", function() {
         $("#additem input:last").remove();
     });
+
+
+    var garage_sale = document.getElementById("garagetypeupd").value;
+    var state_sale = document.getElementById("statetypeupd").value;
+    var community_sale = document.getElementById("communitytypeupd").value;
+
+    if (garage_sale == "garage") {
+        document.getElementById("garagetypeupd").checked = true; 
+        document.getElementById("statetypeupd").value = "state"; 
+        document.getElementById("communitytypeupd").value = "community"; 
+    }
+
+    else if (state_sale == "state") {
+            document.getElementById("statetypeupd").checked = true; 
+            document.getElementById("communitytypeupd").value = "community";
+            document.getElementById("garagetypeupd").value = "garage"; 
+    }
+
+    else if (community_sale == "community") {
+             document.getElementById("communitytypeupd").checked = true; 
+             document.getElementById("garagetypeupd").value = "garage"; 
+             document.getElementById("statetypeupd").value = "state"; 
+    }
+
 });

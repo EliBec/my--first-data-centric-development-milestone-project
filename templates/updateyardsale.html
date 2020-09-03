@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -76,51 +80,24 @@
                     <div>              
                         <label style="font-size: 1rem;"> Choose Yard Sale Type: </label>
                         <br>
-                        {% if yardsale_upd.category == "garage" %}
                         <p>
-                            <input class="with-gap" name="saletype" type="radio" id="garagetype" value="garage" checked/>
-                            <label for="garagetype" style = "color: #26a69a;" >Garage</label>
+                             
+                            <input class="with-gap" name="salecat" type="radio"  id = "garagetypeupd" value="{{yardsale_upd.category}}"/>
+                            <label for="garagetypeupd" style = "color: #26a69a;" >Garage</label>
                         </p> 
                         <p>
-                            <input class="with-gap" name="saletype" type="radio" id="statetype" value="state" />
-                            <label for="statetype" style = "color: #26a69a;" >State</label>
+                            <input class="with-gap" name="salecat" type="radio" id="statetypeupd" value="{{yardsale_upd.category}}" />
+                            <label for="statetypeupd" style = "color: #26a69a;" >State</label>
                         </p>
                         <p>
-                            <input class="with-gap" name="saletype" type="radio" id="communitytype" value="community" />
-                            <label for="communitytype" style = "color: #26a69a;" >Community</label>
-                        </p>
-                        {% elif yardsale_upd.category == "state" %}
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="garagetype" value="garage" />
-                            <label for="garagetype" style = "color: #26a69a;" >Garage</label>
+                            <input class="with-gap" name="salecat" type="radio" id="communitytypeupd" value="{{yardsale_upd.category}}"/>
+                            <label for="communitytypeupd" style = "color: #26a69a;">Community</label>
                         </p> 
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="statetype" value="state" checked />
-                            <label for="statetype" style = "color: #26a69a;" >State</label>
-                        </p>
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="communitytype" value="community" />
-                            <label for="communitytype" style = "color: #26a69a;" >Community</label>
-                        </p>
-                        {% else %}
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="garagetype" value="garage" />
-                            <label for="garagetype" style = "color: #26a69a;" >Garage</label>
-                        </p> 
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="statetype" value="state" />
-                            <label for="statetype" style = "color: #26a69a;" >State</label>
-                        </p>
-                        <p>
-                            <input class="with-gap" name="saletype" type="radio" id="communitytype" value="community" checked />
-                            <label for="communitytype" style = "color: #26a69a;" >Community</label>
-                        </p>
-                        {% endif %}
-                    </div>  
+                    </div>
                     <br>
                     <div class = "row">
                         <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale</label>
-                        <input type="date" class="datepicker" id="saledate" name="saledate" for="saledate"  value="{{yardsale_upd.date}}"required>
+                        <input type="date" class="datepicker" id="saledate" name="saledate" for="saledate"  value="{{yardsale_upd.date}}" required>
                     </div>
                     <div class = "row">
                         <label class="label" style="font-size: 1rem;"> Pick the starting time for your yard </label>

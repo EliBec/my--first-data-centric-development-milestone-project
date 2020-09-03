@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        <div>    
+        <div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h2 class="page-heading-title">Update/Delete Yard Sale</h2> 
                 </div>
             </div>
-
             {% if record_mode == "updated" %}
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
@@ -25,10 +24,10 @@
                 Search the yard sale you wish to update or delete
             </div>
             {% endif %}  
-        </div> 
-        <div class="row">
+        </div>
+        <div> 
             <form id="search-form" action="/updatedelete_yardsales" method="POST">
-                <div class="row"> 
+                <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                             <label class="label" for="datesearch"> Search by date:</label>
                             <input type="date" id="datesearch" name="datesearch" >
@@ -48,19 +47,18 @@
         </div>
         <div class="row">
             {% for yard_sale in yardsales %}
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <p>Date: {{yard_sale.date}} - Time: {{yard_sale.time}} - City: {{yard_sale.city}}</p>
-                    <p> {{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
-                    <p> {{yard_sale.seller_email}} </p>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <p>Date: {{yard_sale.date}} - Time: {{yard_sale.time}} - City: {{yard_sale.city}}</p>
+                <p> {{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
+                <p> {{yard_sale.seller_email}} </p>
                     {{ yard_sale.item_list|join(', ') }}
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6"> 
-                    <div class="map" id="map_{{ yard_sale._id }}">
-                        <iframe width="100%" height="200" frameborder="0" style="border:0" title="Map of {{ yard_sale.seller_first_name}}, {{ yard_sale.seller_last_name }}"
-                        src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ yard_sale.address_1 }}&center={{ yard_sale.lat }},{{ yard_sale.long }}&zoom=16"></iframe>
-                    </div>
-                    <br>    
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6"> 
+                <div class="map" id="map_{{ yard_sale._id }}">
+                    <iframe width="100%" height="200" frameborder="0" style="border:0" title="Map of {{ yard_sale.seller_first_name}}, {{ yard_sale.seller_last_name }}"
+                    src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ yard_sale.address_1 }}&center={{ yard_sale.lat }},{{ yard_sale.long }}&zoom=16"></iframe>
                 </div> 
+            </div> 
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
@@ -69,7 +67,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12 btn-adj">
                 <a  href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_mode='delete')}}" class="btn btn-primary btn-delete">Delete</a>
             </div>
-        </div>    
-    {% endfor %} 
+            {% endfor %} 
+        </div>     
     </div>      
 {% endblock %}
