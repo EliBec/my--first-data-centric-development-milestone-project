@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
     <!-- Bootstrap's Font Awesome -->
     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init("user_q4NdX6hK4WfRlld13gb3E");
+    })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>WhatchaSelling</title>
 </head>
@@ -91,6 +99,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> 
         <!-- Custom local js file -->
         <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
-
+        <script src="js/sendEmail.js"></script>
 </body>
 </html>
