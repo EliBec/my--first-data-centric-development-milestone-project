@@ -1,5 +1,10 @@
-/* Search and Clear buttons will change colors upon clicking any of the search or 'select' fields */
+
 $(document).ready(function(){
+
+     /* Initialize Menu burger button */
+    $(".button-collapse").sideNav();
+
+    /* Search and Clear buttons will change colors upon clicking any of the search or 'select' fields */
     $("#categorysearch").click(function(){
     $("#search-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
     $("#clearsearch-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
@@ -20,7 +25,12 @@ $(document).ready(function(){
     $("#clearsearch-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
     });
 
-    $("#namesearch").click(function(){
+    $("#fnamesearch").click(function(){
+    $("#search-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
+    $("#clearsearch-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
+    });
+
+    $("#lnamesearch").click(function(){
     $("#search-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
     $("#clearsearch-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
     });
@@ -48,27 +58,40 @@ $(document).ready(function(){
         $("#additem input:last").remove();
     });
 
+    /* Check the elements on the radio selection type on the form. if there is a value, then make it "checked". Otherwise, assign a "hardcoded" value */
+        var garage_sale,
+        garage_sale_elem = document.getElementById("garagetypeupd");
+        if (garage_sale_elem != null) {
+            garage_sale = garage_sale_elem.value;
+        }
 
-    var garage_sale = document.getElementById("garagetypeupd").value;
-    var state_sale = document.getElementById("statetypeupd").value;
-    var community_sale = document.getElementById("communitytypeupd").value;
+        var estate_sale,
+        estate_sale_elem = document.getElementById("estatetypeupd");
+        if (estate_sale_elem != null) {
+            estate_sale = estate_sale_elem.value;
+        }
 
-    if (garage_sale == "garage") {
-        document.getElementById("garagetypeupd").checked = true; 
-        document.getElementById("statetypeupd").value = "state"; 
-        document.getElementById("communitytypeupd").value = "community"; 
-    }
+        var community_sale,
+        community_sale_elem = document.getElementById("communitytypeupd");
+        if (community_sale_elem != null) {
+            community_sale = community_sale_elem.value;
+        }
 
-    else if (state_sale == "state") {
-            document.getElementById("statetypeupd").checked = true; 
-            document.getElementById("communitytypeupd").value = "community";
-            document.getElementById("garagetypeupd").value = "garage"; 
-    }
+        if (garage_sale == "Garage") {
+            document.getElementById("garagetypeupd").checked = true; 
+            document.getElementById("estatetypeupd").value = "Estate"; 
+            document.getElementById("communitytypeupd").value = "Community"; 
+        }
 
-    else if (community_sale == "community") {
-             document.getElementById("communitytypeupd").checked = true; 
-             document.getElementById("garagetypeupd").value = "garage"; 
-             document.getElementById("statetypeupd").value = "state"; 
-    }
+        else if (estate_sale == "Estate") {
+                document.getElementById("estatetypeupd").checked = true; 
+                document.getElementById("communitytypeupd").value = "Community";
+                document.getElementById("garagetypeupd").value = "Garage"; 
+        }
 
+        else if (community_sale == "Community") {
+                document.getElementById("communitytypeupd").checked = true; 
+                document.getElementById("garagetypeupd").value = "Garage"; 
+                document.getElementById("estatetypeupd").value = "Estate"; 
+        }
 });

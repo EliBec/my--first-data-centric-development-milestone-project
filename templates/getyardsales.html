@@ -48,10 +48,10 @@
         <div class="row">
             {% for yard_sale in yardsales %}
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <p><strong>Date: </strong>{{yard_sale.date}} - Time: {{yard_sale.time}} - City: {{yard_sale.city}}</p>
+                    <p><strong>Date: </strong>{{yard_sale.date}} <strong> - Time: </strong>{{yard_sale.time}} <strong>- City:</strong> {{yard_sale.city}} ({{yard_sale.state}})</p>
                     <p><strong> Seller Name: </strong>{{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
                     <p> <strong>Email: </strong>{{yard_sale.seller_email}} </p>
-                    <p> <strong>Items for sale: </strong>{{ yard_sale.item_list|join(', ') }}
+                    <p> <strong>Items for sale: </strong>{{ yard_sale.item_list|join(', ') }}</p>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6"> 
                         <div class="map" id="map_{{ yard_sale._id }}">

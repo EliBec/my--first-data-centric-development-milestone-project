@@ -218,23 +218,22 @@ def save_yardsale(yardsale_id, record_status):
     print(addr_long)
 
     yardsales.update({'_id': ObjectId(yardsale_id)},
-
-        {
-            'seller_first_name': request.form.get('first_name'),
-            'seller_last_name': request.form.get('last_name'),
-            'seller_email': request.form.get('email'),
-            'item_list': request.form.getlist('itemlist'),
-            'date': request.form.get('saledate'),
-            'time': request.form.get('saletime'),
-            'category': request.form.get('salecat'),
-            'address_1': request.form.get('address1'),
-            'city': request.form.get('city'),
-            'state': request.form.get('state'),
-            'country_code': request.form.get('countrycode'),
-            'zip': request.form.get('zip'),
-            'lat': addr_lat,
-            'long': addr_long
-        })
+                     {
+                        'seller_first_name': request.form.get('first_name'),
+                        'seller_last_name': request.form.get('last_name'),
+                        'seller_email': request.form.get('email'),
+                        'item_list': request.form.getlist('itemlist'),
+                        'date': request.form.get('saledate'),
+                        'time': request.form.get('saletime'),
+                        'category': request.form.get('salecat').capitalize(),
+                        'address_1': request.form.get('address1'),
+                        'city': request.form.get('city'),
+                        'state': request.form.get('state'),
+                        'country_code': request.form.get('countrycode'),
+                        'zip': request.form.get('zip'),
+                        'lat': addr_lat,
+                        'long': addr_long
+                     })
 
     record_status = 'updated'
 

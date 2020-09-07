@@ -52,10 +52,10 @@
         <div class="row">
             {% for yard_sale in yardsales %}
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <p>Date: {{yard_sale.date}} - Time: {{yard_sale.time}} - City: {{yard_sale.city}}</p>
-                <p> {{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
-                <p> {{yard_sale.seller_email}} </p>
-                    {{ yard_sale.item_list|join(', ') }}
+                <p><strong>Date: </strong>{{yard_sale.date}} <strong>- Time: </strong>{{yard_sale.time}} <strong> - City: </strong>{{yard_sale.city}} ({{yard_sale.state}})</p>
+                <p> <strong> Seller Name: </strong>{{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
+                <p><strong>Seller Email:</strong> {{yard_sale.seller_email}} </p>
+                <p><strong>Items for Sale: </strong>{{ yard_sale.item_list|join(', ') }}</p>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6"> 
                 <div class="map" id="map_{{ yard_sale._id }}">
@@ -65,13 +65,14 @@
             </div> 
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <a  href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_status='toupdate')}}" class="btn btn-primary edit-btn">Edit</a>
+            <div class="col-lg-3 col-md-6 col-sm-12"></div>
+            <div class="col-lg-3 col-md-6 col-sm-6 centered">
+                <a  href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_status='toupdate')}}" class="btn btn-warning edit-btn">Edit</a>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                 <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
+            <div class="col-lg-3 col-md-6 col-sm-6 centered">
+                 <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-info btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
             </div>
-
+            <div class="col-lg-3 col-md-6 col-sm-12"></div>
             <div class="modal fade" id="modalDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -86,7 +87,6 @@
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel </button>
-
                             <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete">Yes, Delete it!</a>  
                         </div>
                     </div>
