@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        <div class="section">    
+        {% if record_status == "added" %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    Your Yard Sale Has Been Added!
+                </div>
+            </div>
+        {% else %}
+        <div class="section"> 
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h2 class="page-heading-title">Add your Yard Sale</h2>      
@@ -45,7 +52,7 @@
                                 <label class="label" for="address1">Address Line 1</label>
                             </div>
                             <div class="input-field col s6">
-                                <input id="address2" type="text" class="validate" name="address1" required>
+                                <input id="address2" type="text" class="validate" name="address2">
                                 <label class="label" for="address2">Address Line 2</label>
                             </div>
                         </div>
@@ -85,15 +92,15 @@
                                 <label style="font-size: 1rem;"> Choose Yard Sale Type: </label>
                                 <br>
                                 <p>
-                                    <input class="with-gap" name="salecat" type="radio" id="garagetype" value="garage" />
+                                    <input class="with-gap" name="salecat" type="radio" id="garagetype" value="Garage" />
                                     <label for="garagetype" style = "color: #26a69a;" >Garage</label>
                                 </p> 
                                 <p>
-                                    <input class="with-gap" name="salecat" type="radio" id="statetype" value="state"/>
-                                    <label for="statetype" style = "color: #26a69a;" >State</label>
+                                    <input class="with-gap" name="salecat" type="radio" id="statetype" value="Estate"/>
+                                    <label for="statetype" style = "color: #26a69a;" >Estate</label>
                                 </p>
                                 <p>
-                                    <input class="with-gap" name="salecat" type="radio" id="communitytype" value="community" />
+                                    <input class="with-gap" name="salecat" type="radio" id="communitytype" value="Community" />
                                     <label for="communitytype" style = "color: #26a69a;" >Community</label>
                                 </p>
                             </div>
@@ -110,9 +117,9 @@
                         <div class="row" id="additem">    
                             <div class="col-lg-12 col-md-12 col-sm-12" >
                                 <label for="item">List of items for sale (1 listing per line): </label>
-                                <input type="text" class="form-control ingredient" name="itemlist" placeholder="enter an item(e.g. books)" minlength="3" required/>
-                                <input type="text" class="form-control ingredient" name="itemlist" placeholder="enter an item(e.g. bike)" minlength="3" />
-                                <input type="text" class="form-control ingredient" name="itemlist" placeholder="enter an item(e.g. appliances)" minlength="3" />
+                                <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. books)" minlength="3" required />
+                                <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. bike)" minlength="3" />
+                                <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. appliances)" minlength="3" />
                                 <!--buttons to add / remove input boxes-->
                                 <button type="button" class="new-input-btn"><i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
@@ -134,5 +141,6 @@
                 </div>
             </div> 
         </div>
+        {% endif %}
     </div>           
 {% endblock %}

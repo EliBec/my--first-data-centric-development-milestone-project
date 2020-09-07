@@ -7,20 +7,20 @@
                     <h2 class="page-heading-title">Update/Delete Yard Sale</h2> 
                 </div>
             </div>
-            {% if record_mode == "updated" %}
+            {% if record_status == "updated" %}
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
                 Yard Sale Has Been Updated!
                 </div>
             </div>
-            {% elif record_mode == "deleted" %}
+            {% elif record_status == "deleted" %}
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
                 Yard Sale Has Been Deleted!
                 </div>
             </div>
             {% else %} 
-            <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
                 Search the yard sale you wish to update or delete
             </div>
             {% endif %}  
@@ -28,18 +28,22 @@
         <div> 
             <form id="search-form" action="/updatedelete_yardsales" method="POST">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-2 col-md-6 col-sm-12">
                             <label class="label" for="datesearch"> Search by date:</label>
                             <input type="date" id="datesearch" name="datesearch" >
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                            <label class="label" for="namesearch"> Search by Seller's Name:</label>
-                            <input type="text" id="namesearch" name="namesearch" >
-                    </div>  
-                    <div class="col-lg-3 col-md-6 col-sm-12 btn-adj">
-                            <button type="Submit" id="search-btn" class="btn btn-secondary">Search Yard Sales</button>
+                            <label class="label" for="fnamesearch"> Search by First Name:</label>
+                            <input type="text" id="fnamesearch" name="fnamesearch" >
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 btn-adj">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                            <label class="label" for="lnamesearch"> Search by Seller's Name:</label>
+                            <input type="text" id="lnamesearch" name="lnamesearch" >
+                    </div>  
+                    <div class="col-lg-2 col-md-6 col-sm-12 btn-adj">
+                            <button type="Submit" id="search-btn" class="btn btn-secondary">Search</button>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12 btn-adj">
                             <button type="button" id="clearsearch-btn" class="btn btn-secondary"> Clear Search</button>
                     </div>     
                 </div>
@@ -62,10 +66,10 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <a  href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_mode='upd')}}" class="btn btn-primary edit-btn">Edit</a>
+                <a  href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_status='toupdate')}}" class="btn btn-primary edit-btn">Edit</a>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">  <!-- btn-adj -->
-                 <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_mode='delete')}}" class="btn btn-primary btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                 <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
             </div>
 
             <div class="modal fade" id="modalDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -83,12 +87,12 @@
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel </button>
 
-                            <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_mode='delete')}}" class="btn btn-primary btn-delete">Yes, Delete it!</a>  
+                            <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete">Yes, Delete it!</a>  
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %} 
-        </div>  <!-- row -->
+        </div> 
     </div>      
 {% endblock %}

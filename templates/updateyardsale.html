@@ -2,13 +2,19 @@
 {% block content %}
 <div class="container">
         <div class="row">
+            <div class="col-sm-7 offset-5 offset-md-8 col-md-4 offset-lg-9 col-lg-3">
+                <!-- button to go back to search results on previous page -->
+                <a class="btn btn-outline-primary btn-back" onclick="history.go(-1)">Back to search results</a>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <h2 class="page-heading-title">Update Yard Sale</h2> 
             </div>
         </div>
         <div class="add-yardsale-form-wrap">
             <div class="row">
-                <form action ="{{ url_for('save_yardsale', yardsale_id=yardsale_upd._id,record_mode=record_mode ) }}" method="POST" class="col s12"> 
+                <form action ="{{ url_for('save_yardsale', yardsale_id=yardsale_upd._id,record_status=record_status ) }}" method="POST" class="col s12"> 
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="first_name" type="text" class="validate" name="first_name" value="{{yardsale_upd.seller_first_name}}" required>
@@ -83,7 +89,7 @@
                         </p> 
                         <p>
                             <input class="with-gap" name="salecat" type="radio" id="statetypeupd" value="{{yardsale_upd.category}}" />
-                            <label for="statetypeupd" style = "color: #26a69a;" >State</label>
+                            <label for="statetypeupd" style = "color: #26a69a;" >Estate</label>
                         </p>
                         <p>
                             <input class="with-gap" name="salecat" type="radio" id="communitytypeupd" value="{{yardsale_upd.category}}"/>
@@ -103,7 +109,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-12"> 
                             <label for="item">List of items for sale (1 listing per line): </label>
                             {% for items in yardsale_upd.item_list %}
-                                <input type="text" class="form-control itemlist" name="itemlist" placeholder="{{items}}" value="{{items}}" minlength="3" required/>
+                                <input type="text" class="form-control itemlist" name="itemlist" placeholder="{{items}}" value="{{items}}" minlength="2"/>
                             {% endfor %}
                             <!--buttons to add / remove input boxes-->
                             <button type="button" class="new-input-btn" ><i class="fa fa-plus" aria-hidden="true"></i>

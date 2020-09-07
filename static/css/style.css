@@ -42,6 +42,15 @@ nav .brand-logo {
     font-size: 1.5em;
  }
 
+div > a:hover  {
+    color:#26a69a !important;
+}
+
+div > ul> li > a:hover {
+    color: #26a69a !important;
+}
+
+
 .main-title {
   text-align: center;
   position: absolute;
@@ -179,6 +188,23 @@ label {
 .btn-contact {
     border: 1px solid #26a69a !important;
 } 
+
+
+.info-msg {
+    margin-left:0px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+     font-weight: 600; 
+    font-size: 1.3em;
+    color: blue;
+}
+
+/* Form Styling */
+
+.itemlist{
+text-transform: capitalize;
+}
+
 
 /* Footer  */
 .footer-font-style {
