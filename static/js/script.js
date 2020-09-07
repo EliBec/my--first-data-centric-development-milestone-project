@@ -36,7 +36,7 @@ $(document).ready(function(){
     });
     
 
-    /* Click the 'Clear button will reset fields and buttons */
+    /* Click the 'Clear' button will reset fields and buttons */
     $("#clearsearch-btn").click(function(){
     $("#search-btn").removeClass("btn btn-info").addClass("btn btn-secondary" );
     $("#clearsearch-btn").removeClass("btn btn-warning").addClass("btn btn-secondary");

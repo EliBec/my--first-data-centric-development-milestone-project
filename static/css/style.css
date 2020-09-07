@@ -142,7 +142,7 @@ nav .button-collapse {
 }
 
 /* Add YardSale page */
-.add-yardsale-form-wrap, .update-yardsale-form-wrap{
+.form-wrap{
     /*background: #fafafa;*/
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -218,6 +218,23 @@ label {
 text-transform: capitalize;
 }
 
+.contact-form-msg{
+    display: none;
+}
+
+.show-contact-form-msg-success, .show-contact-form-msg-fail{
+    text-align:center;
+    display: block;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+.show-contact-form-msg-success{
+    color: green ;
+}
+.show-contact-form-msg-fail{
+    color: red;
+}
 
 /* Footer  */
 .footer-font-style {
