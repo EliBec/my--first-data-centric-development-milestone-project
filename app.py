@@ -6,6 +6,7 @@ from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from flask_googlemaps import GoogleMaps
 from bson.objectid import ObjectId
+from datetime import date
 
 # instatiate Flask application
 app = Flask(__name__)
@@ -34,7 +35,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route('/get_yardsales/', methods=["GET", "POST"])
 def get_yardsales():
-    yardsales = mongo.db.yard_sales.find()
+    #yardsales = mongo.db.yard_sales.find()
     categories = mongo.db.categories.find()
 
     # declare dictionary
@@ -53,14 +54,18 @@ def get_yardsales():
         if yardsale_date != "":
             searchcriteriadict['date'] = yardsale_date
 
+
         # value in form "cityorzip" is either the zip code or city
         yardsale_cityorzip = request.form.get('cityorzipsearch')
         if yardsale_cityorzip != "":
+
             # check if there is matching document where form's value is equal to city. If found, then add to dictionary. Else, perform same search and action but for zip code
-            if mongo.db.yard_sales.find({'city': yardsale_cityorzip}).count() > 0:
+
+            if mongo.db.yard_sales.count_documents({'city': yardsale_cityorzip}) > 0:
                 searchcriteriadict['city'] = yardsale_cityorzip
+
             else:
-                if mongo.db.yard_sales.find({'zip': yardsale_cityorzip}).count() > 0:
+                if mongo.db.yard_sales.count_documents({'zip': yardsale_cityorzip})> 0:
                     searchcriteriadict['zip'] = yardsale_cityorzip
 
         yardsale_items = request.form.get('itemsearch').capitalize()
@@ -68,12 +73,27 @@ def get_yardsales():
         if yardsale_items != "":
             searchcriteriadict['item_list'] = {'$in': [yardsale_items]}
 
-        search_results = mongo.db.yard_sales.find(searchcriteriadict)
+        if searchcriteriadict != {}:
+            search_results = mongo.db.yard_sales.find(searchcriteriadict)
+            
+            yardsales_count = mongo.db.yard_sales.count_documents(searchcriteriadict)
 
-        return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key=google_key)
+            return render_template('getyardsales.html', yardsales=search_results, categories=categories, google_key=google_key, yardsales_count=yardsales_count, mode="search")
+
+        else:
+            return render_template('getyardsales.html', yardsales_count=0, mode="search")
 
     else:
-        return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key=google_key)
+
+        today_date = date.today()
+        today_str = today_date.strftime("%Y-%m-%d")
+
+        yardsales = mongo.db.yard_sales.find({'date': today_str})
+
+        yardsales_count = yardsales.count() 
+        print('conteo' + str(yardsales_count))
+
+        return render_template('getyardsales.html', yardsales=yardsales, categories=categories, google_key=google_key, yardsales_count=yardsales_count, mode="all")
 
 
 # route for the Add Yard Sales page (addyardsales.html)

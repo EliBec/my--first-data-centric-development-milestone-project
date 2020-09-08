@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <label class="label" for="cityorzipsearch">Search by City or Zip Code:</label>
-                        <input type="search" id="cityorzipsearch" name="cityorzipsearch">
+                        <input type="search" id="cityorzipsearch" name="cityorzipsearch" >
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <label class="label" for="itemsearch">Search by Item:</label>
@@ -46,7 +46,30 @@
         </div>       
         <br>     
         <div class="row">
-            {% for yard_sale in yardsales %}
+            
+
+                {% if yardsales_count == 0 and mode == "search" %}
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    <p>No Yard Sales found for your search criteria. Please try again.</p>
+                </div>
+                {% elif yarssales_count == 0 and mode == "all" %}
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    <p>There are no Yard Sales for today. Try searching using any of the search criteria filters above</p>
+                </div>
+                {% elif yardsales_count != 0 and mode == "all" %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    Here are the today's Yard Sales:
+                    </div>
+                </div>
+                {% elif yardsales_count != 0 and mode == "search" %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    Search results: {{ yardsales_count }}
+                    </div>
+                </div>
+                {% endif %}
+                {% for yard_sale in yardsales %}
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <p><strong>Date: </strong>{{yard_sale.date}} <strong> - Time: </strong>{{yard_sale.time}} <strong>- City:</strong> {{yard_sale.city}} ({{yard_sale.state}})</p>
                     <p><strong> Seller Name: </strong>{{yard_sale.seller_first_name}} {{yard_sale.seller_last_name}} </p> 
@@ -61,7 +84,8 @@
                             </iframe>
                         </div>
                     <br>    
-                </div>  
+                </div> 
+              
             {% endfor %}   
         </div>
     </div>    
