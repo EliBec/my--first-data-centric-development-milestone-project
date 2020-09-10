@@ -41,7 +41,21 @@ $(document).ready(function(){
     $("#search-btn").removeClass("btn btn-info").addClass("btn btn-secondary" );
     $("#clearsearch-btn").removeClass("btn btn-warning").addClass("btn btn-secondary");
     $('#search-form input[type="search"]').val('');
-    $('#search-form #date-search').val('');
+    $('#search-form #datesearch').val('');
+    $('#search-form #categorysearch').val('');
+    $('#search-form #fnamesearch').val('');
+    $('#search-form #lnamesearch').val('');
+    });
+
+    $("#clear-all-btn").click(function(){    
+    $('#add-form input[type="text"]').val('');
+    $('#add-form input[type="radio"]').val('');
+    $('#add-form #email').val('');
+    $('#add-form #telephone').val('');
+    $('#add-form #saletime').val('');
+    $('#add-form #saledate').val('');
+    $('#add-form input[type="radio"]').val('');
+     /*type="radio"*/
     });
 
 
@@ -57,6 +71,7 @@ $(document).ready(function(){
     $(".remove-input-btn").on("click", function() {
         $("#additem input:last").remove();
     });
+
 
     /* Check the elements on the radio selection type on the form. if there is a value, then make it "checked". Otherwise, assign a "hardcoded" value */
         var garage_sale,

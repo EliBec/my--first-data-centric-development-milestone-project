@@ -4,7 +4,7 @@
 .banner-image {
   background-image: url("../images/banner-blurry.jpg");
   height: 50vh;
-  background-position: center; 
+  background-position: center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -124,6 +124,7 @@ nav .button-collapse {
 
 .centered{
     text-align: center;
+    margin:10px;
 }
 
 .separator {
@@ -135,7 +136,21 @@ nav .button-collapse {
     -o-box-shadow: 0 0 3px #26a69a;
     -ms-box-shadow: 0 0 3px  #26a69a;
     background-image: linear-gradient(to right,#26a69a,#7adbd2 );
+    margin-top:15px;
     margin-bottom:15px;
+}
+
+.separator-purple {
+    width:70%;
+    text-align:center;
+    height:1px;
+    -webkit-box-shadow: 0 0 3px #6200ea; 
+    -moz-box-shadow: 0 0 3px #6200ea;
+     box-shadow: 0 0 3px #6200ea;
+    -o-box-shadow: 0 0 3px #6200ea;
+    -ms-box-shadow: 0 0 3px  #6200ea;
+    background-image: linear-gradient(to right,#6200ea,#9574c4 );
+    margin:5%;
 }
 
 .form-wrap{
@@ -149,7 +164,17 @@ nav .button-collapse {
     -moz-box-shadow: 0 0 10px #26a69a;
      box-shadow: 0 0 10px #26a69a;
     -o-box-shadow: 0 0 10px #26a69a;
-    -ms-box-shadow: 0 0 10px  #26a69a; 
+    -ms-box-shadow: 0 0 10px  #26a69a;
+    margin:auto;
+}
+
+.map-wrapper {
+    border: 1px #6200ea solid;
+    padding:0px;
+}
+
+.center-content {
+    margin: auto !important;
 }
 
 .clear-gap {
@@ -164,19 +189,6 @@ label {
     font-weight:400;
     color:#6200ea !important;
 }
-
-#search-btn, #clearsearch-btn{
-    display: block;
-}
-
-#search-btn {
-    margin:auto;
-}
-
-.btn-adj {
-    margin-top: 35px;
-}
-
 
 /* About page */
 .about-text, .btn-wrapper {
@@ -289,6 +301,14 @@ text-transform: capitalize;
     left:12%;
     font-size: 2em;
     }
+
+    .page-heading-title{
+        font-size: 2.5em;    
+    }
+
+    .centered{
+        margin:auto;
+    }
 }
 
 
@@ -317,6 +337,14 @@ text-transform: capitalize;
 
     .main-title > h1, .main-title2 > h1 {
         font-size: 2.5em;
+    }
+
+    .page-heading-title{
+        font-size: 2.5em;    
+    }
+   
+    .centered{
+        margin:auto;
     }
 
 }

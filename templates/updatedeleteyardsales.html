@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        <div>
+        <div class="section">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2 class="page-heading-title">Update/Delete Yard Sale</h2> 
+                    <h2 class="page-heading-title">Update/Delete your Yard Sale</h2> 
                 </div>
             </div>
+        </div>    
             {% if record_status == "updated" %}
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
@@ -19,37 +20,45 @@
                 Yard Sale Has Been Deleted!
                 </div>
             </div>
+            {% elif yardsales_count == 0 %}
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    <p>No Yard Sales found for your search criteria. Please try again.</p>
+                </div>
+            {% elif yardsales_count %}
+                <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
+                    Search results: {{ yardsales_count }}
+                </div>
             {% else %} 
             <div class="col-lg-12 col-md-12 col-sm-12 info-msg">
                 Search the yard sale you wish to update or delete
             </div>
-            {% endif %}  
-        </div>
+            {% endif %}    
+        
         <div> 
             <form id="search-form" action="/updatedelete_yardsales" method="POST">
                 <div class="row">
-                    <div class="col-lg-2 col-md-6 col-sm-12">
+                    <div class="col-lg-2 col-md-4 col-sm-4">
                             <label class="label" for="datesearch"> Search by date:</label>
                             <input type="date" id="datesearch" name="datesearch" >
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-4 col-sm-4">
                             <label class="label" for="fnamesearch"> Search by First Name:</label>
                             <input type="text" id="fnamesearch" name="fnamesearch" >
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-4 col-sm-4">
                             <label class="label" for="lnamesearch"> Search by Seller's Name:</label>
                             <input type="text" id="lnamesearch" name="lnamesearch" >
                     </div>  
-                    <div class="col-lg-2 col-md-6 col-sm-12 btn-adj">
+                    <div class="col-lg-2 col-md-6 col-sm-6 centered">
                             <button type="Submit" id="search-btn" class="btn btn-secondary">Search</button>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 btn-adj">
+                    <div class="col-lg-2 col-md-6 col-sm-6 centered">
                             <button type="button" id="clearsearch-btn" class="btn btn-secondary"> Clear Search</button>
                     </div>     
                 </div>
             </form> 
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom:5%;">
             {% for yard_sale in yardsales %}
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <p><strong>Date: </strong>{{yard_sale.date}} <strong>- Time: </strong>{{yard_sale.time}} <strong> - City: </strong>{{yard_sale.city}} ({{yard_sale.state}})</p>
@@ -57,7 +66,7 @@
                 <p><strong>Seller Email:</strong> {{yard_sale.seller_email}} </p>
                 <p><strong>Items for Sale: </strong>{{ yard_sale.item_list|join(', ') }}</p>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6"> 
+            <div class="col-lg-6 col-md-6 col-sm-6 map-wrapper"> 
                 <div class="map" id="map_{{ yard_sale._id }}">
                     <iframe width="100%" height="200" frameborder="0" style="border:0" title="Map of {{ yard_sale.seller_first_name}}, {{ yard_sale.seller_last_name }}"
                     src="https://www.google.com/maps/embed/v1/search?key={{ google_key }}&q={{ yard_sale.address_1 }}&center={{ yard_sale.lat }},{{ yard_sale.long }}&zoom=16"></iframe>
@@ -65,14 +74,13 @@
             </div> 
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-12"></div>
-            <div class="col-lg-3 col-md-6 col-sm-6 centered">
+            <div class="col-lg-6 col-md-6 col-sm-4 centered">
                 <a  href="{{url_for('update_yardsale', yardsale_id=yard_sale._id, record_status='toupdate')}}" class="btn btn-warning edit-btn">Edit</a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 centered">
+            <div class="col-lg-6 col-md-6 col-sm-4 centered">
                  <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-info btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12"></div>
+            <div class="separator-purple"></div>
             <div class="modal fade" id="modalDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -83,11 +91,12 @@
                             </button>
                         </div>
                         <div class="modal-body mx-3">
-                            <p> Data will be permanently removed</p>
+                            <p> Yard Sale will be permanently removed</p>
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel </button>
-                            <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete">Yes, Delete it!</a>  
+                            <button type="button" class="btn btn-secondary center-content" data-dismiss="modal">Cancel </button>
+
+                            <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete center-content">Yes, Delete it!</a>  
                         </div>
                     </div>
                 </div>
