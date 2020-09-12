@@ -85,21 +85,24 @@ $(document).ready(function(){
 
 
     /* Check the elements on the radio selection type on the form. if there is a value, then make it "checked". Otherwise, assign a "hardcoded" value */
-        var garage_sale,
+        var garage_sale;
+        var garage_sale_elem;
         garage_sale_elem = document.getElementById("garagetypeupd");
-        if (garage_sale_elem != null) {
+        if (garage_sale_elem !== null) {
             garage_sale = garage_sale_elem.value;
         }
 
-        var estate_sale,
+        var estate_sale;
+        var estate_sale_elem;
         estate_sale_elem = document.getElementById("estatetypeupd");
-        if (estate_sale_elem != null) {
+        if (estate_sale_elem !== null) {
             estate_sale = estate_sale_elem.value;
         }
 
-        var community_sale,
+        var community_sale;
+        var community_sale_elem;
         community_sale_elem = document.getElementById("communitytypeupd");
-        if (community_sale_elem != null) {
+        if (community_sale_elem !== null) {
             community_sale = community_sale_elem.value;
         }
 

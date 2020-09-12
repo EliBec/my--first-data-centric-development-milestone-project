@@ -81,22 +81,23 @@
                  <a href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-info btn-delete" data-toggle="modal" data-target="#modalDeleteDialog">Delete</a>
             </div>
             <div class="separator-purple"></div>
-            <div class="modal fade" id="modalDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Delete this Yard Sale?</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <p> Yard Sale will be permanently removed</p>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary center-content" data-dismiss="modal">Cancel </button>
-
-                            <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete center-content">Yes, Delete it!</a>  
+            <div id="myModalLabel">
+                <div class="modal fade" id="modalDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Delete this Yard Sale?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <p> Yard Sale will be permanently removed</p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="button" class="btn btn-secondary center-content" data-dismiss="modal">Cancel </button>
+                                <a role="button" href="{{url_for('delete_yardsale', yardsale_id=yard_sale._id, record_status='todelete')}}" class="btn btn-primary btn-delete center-content">Yes, Delete it!</a>  
+                            </div>
                         </div>
                     </div>
                 </div>
