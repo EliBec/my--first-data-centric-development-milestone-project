@@ -6,7 +6,7 @@ function sendEmail(contactForm){
        $('#confirmation-msg-success').removeClass("contact-form-msg").addClass("show-contact-form-msg-success");  
        $('.form-control').val('');                
     }, function(error) {
-       console.log("FAILED...", error);
+       /*console.log("FAILED...", error);*/
        $('#confirmation-msg-fail').removeClass("contact-form-msg").addClass("show-contact-form-msg-fail");  
        $('.form-control').val('');
     });
