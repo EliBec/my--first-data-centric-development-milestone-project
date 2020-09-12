@@ -23,21 +23,23 @@
                            <div class="separator"></div>
                         </div>
                     </div>
-                    <form action ="{{ url_for('save_yardsale', yardsale_id=yardsale_upd._id,record_status=record_status ) }}" method="POST"> 
+                    <form id="update-form" action ="{{ url_for('save_yardsale', yardsale_id=yardsale_upd._id,record_status=record_status ) }}" method="POST">
+                    <small class="form-text text-muted">Fields with * are required.</small>
+                    <br> 
                         <div class="row">
                             <div class="input-field col-sm-6">
                                 <input id="first_name" type="text" class="validate" name="first_name" value="{{yardsale_upd.seller_first_name}}" required>
-                                <label class="label" for="first_name">First Name</label>
+                                <label class="label" for="first_name">First Name *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <input id="last_name" type="text" class="validate" name="last_name" value="{{yardsale_upd.seller_last_name}}" required>
-                                <label class="label" for="last_name">Last Name</label>
+                                <label class="label" for="last_name">Last Name *</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col-sm-6">
                                 <input id="email" type="email" class="validate" name="email" value="{{yardsale_upd.seller_email}}" required>
-                                <label class="label" for="email">Email</label>
+                                <label class="label" for="email">Email *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <i class="material-icons prefix">phone</i>
@@ -48,7 +50,7 @@
                         <div class="row">
                             <div class="input-field col-sm-6">
                                 <input id="address1" type="text" class="validate" name="address1" value="{{yardsale_upd.address_1}}" >
-                                <label class="label" for="address1">Address Line 1</label>
+                                <label class="label" for="address1">Address Line 1 *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <input id="address2" type="text" class="validate" name="address2" value="{{yardsale_upd.address_2}}">
@@ -58,19 +60,19 @@
                         <div class="row">
                             <div class="input-field col-lg-3 col-md-3 col-sm-6">
                                 <input id="city" type="text" class="validate" name="city" value="{{yardsale_upd.city}}" required>
-                                <label class="label" for="city">City</label>
+                                <label class="label" for="city">City *</label>
                             </div>
                             <div class="input-field col-lg-3 col-md-3 col-sm-6">
                                 <input id="state" type="text" class="validate" name="state"  value="{{yardsale_upd.state}}" required>
-                                <label class="label" for="state">State</label>
+                                <label class="label" for="state">State *</label>
                             </div>
                             <div class="input-field col-lg-3 col-md-3 col-sm-6">
                                 <input id="zip" type="text" class="validate" name="zip" value="{{yardsale_upd.zip}}" required>
-                                <label class="label" for="zip">Zip Code</label>
+                                <label class="label" for="zip">Zip Code *</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6">
                                 <div class="form-group">
-                                    <label class="label" style="font-size: 1rem;" for="countrycode"> Country: </label>
+                                    <label class="label" style="font-size: 1rem;" for="countrycode"> Country * : </label>
                                     <select name="countrycode" class="form-control" id="countrycode" required>
                                     <option value="{{yardsale_upd.country_code}}">{{yardsale_upd.country_code}}</option>
                                     {% for country in countries %}
@@ -88,7 +90,7 @@
                         </div>    
                         <div class="row">  
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                 <label style="font-size: 1rem;"> Choose Yard Sale Type: </label>
+                                 <label style="font-size: 1rem;"> Choose Yard Sale Type * : </label>
                                  <br>
                                  <p>
                                     <input class="with-gap" name="salecat" type="radio" id="garagetypeupd" value="{{yardsale_upd.category}}"/>
@@ -104,18 +106,18 @@
                                 </p> 
                             </div>    
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale</label>
+                                <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale * </label>
                                 <input type="date" class="datepicker" id="saledate" name="saledate" for="saledate"  value="{{yardsale_upd.date}}" required>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <label class="label" style="font-size: 1rem;"> Pick the starting time for your yard </label>
+                                <label class="label" style="font-size: 1rem;"> Pick the starting time for your yard * </label>
                                 <input type="time" id="saletime" name="saletime" for="saletime"  value="{{yardsale_upd.time}}" required>
                             </div>
                         </div>
                         <br>
                         <div class="row" id="additem">
                             <div class="col-lg-3 col-md-6 col-sm-12"> 
-                                <label for="item">List of items for sale (1 listing per line): </label>
+                                <label for="item">List of items for sale (List at least one item. Enter oneonly  item per line) * : </label>
                                 {% for items in yardsale_upd.item_list %}
                                     <input type="text" class="form-control itemlist" name="itemlist" placeholder="{{items}}" value="{{items}}" minlength="2"/>
                                 {% endfor %}
@@ -128,10 +130,10 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-4 centered">
-                                <button class="btn btn-warning" type="submit" name="action">Save Changes</button>
+                                <button class="btn btn-secondary" id="update-sale-btn" type="submit" name="action">Save Changes</button>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-4 centered">
-                                <a class="btn btn-info btn-cancel" onclick="history.go(-1)">Cancel</a>
+                                <a id="cancel-btn" class="btn btn-secondary btn-cancel" onclick="history.go(-1)">Cancel</a>
                             </div>
                         </div>  
                     </form>

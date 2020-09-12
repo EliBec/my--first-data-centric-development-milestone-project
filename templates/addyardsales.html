@@ -25,20 +25,21 @@
                         </div>
                     </div>
                     <form id="add-form" action ="{{ url_for('insert_yardsale') }}" method="POST"> 
+                    <small class="form-text text-muted">Fields with * are required.</small>
                         <div class="row">
-                            <div class="input-field col-sm-6">
+                            <div class="input-field col-sm-6"> 
                                 <input id="first_name" type="text" class="validate" name="first_name" required>
-                                <label class="label" for="first_name">First Name</label>
+                                <label class="label" for="first_name">First Name *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <input id="last_name" type="text" class="validate" name="last_name" required>
-                                <label class="label" for="last_name">Last Name</label>
+                                <label class="label" for="last_name">Last Name *</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col-sm-6">
                                 <input id="email" type="email" class="validate" name="email" required>
-                                <label class="label" for="email">Email</label>
+                                <label class="label" for="email">Email *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <i class="material-icons prefix">phone</i>
@@ -49,7 +50,7 @@
                         <div class="row">
                             <div class="input-field col-sm-6">
                                 <input id="address1" type="text" class="validate" name="address1" required>
-                                <label class="label" for="address1">Address Line 1</label>
+                                <label class="label" for="address1">Address Line 1 *</label>
                             </div>
                             <div class="input-field col-sm-6">
                                 <input id="address2" type="text" class="validate" name="address2">
@@ -59,19 +60,19 @@
                         <div class="row">
                             <div class="input-field col-lg-3 col-md-3 col-sm-3">
                                 <input id="city" type="text" class="validate" name="city" required>
-                                <label class="label" for="city">City</label>
+                                <label class="label" for="city">City *</label>
                             </div>
                             <div class="input-field col-lg-3 col-md-3 col-sm-3">
                                 <input id="state" type="text" class="validate" name="state" required>
-                                <label class="label" for="state">State</label>
+                                <label class="label" for="state">State/Province *</label>
                             </div>
                             <div class="input-field col-lg-3 col-md-3 col-sm-3">
                                 <input id="zip" type="text" class="validate" name="zip" required>
-                                <label class="label" for="zip">Zip Code</label>
+                                <label class="label" for="zip">Zip Code *</label>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
-                                    <label class="label" style="font-size: 1rem;" for="countrycode"> Country: </label>
+                                    <label class="label" style="font-size: 1rem;" for="countrycode"> Country: *</label>
                                     <select name="countrycode" class="form-control" id="countrycode" required>
                                     <option value=""></option>
                                     {% for country in countries %}
@@ -89,7 +90,7 @@
                         </div>
                         <div class="row">  
                             <div class="col-lg-4 col-md-4 col-sm-6">          
-                                <label style="font-size: 1rem;"> Choose Yard Sale Type: </label>
+                                <label style="font-size: 1rem;"> Choose Yard Sale Type * :</label>
                                 <br>
                                 <p>
                                     <input class="with-gap" name="salecat" type="radio" id="garagetype" value="Garage" />
@@ -105,18 +106,18 @@
                                 </p>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale</label>
+                                <label class="label" style="font-size: 1rem;" >Pick a date for your yard sale * :</label>
                                 <input type="date" class="datepicker" id="saledate" name="saledate" for="saledate" required>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <label class="label" style="font-size: 1rem;"> Pick the starting time for your yard </label>
+                                <label class="label" style="font-size: 1rem;"> Pick the starting time for your yard * : </label>
                                 <input type="time" id="saletime" name="saletime" for="saletime" required>
                             </div>
                         </div>
                         <br>
                         <div class="row" id="additem">    
                             <div class="col-lg-12 col-md-12 col-sm-12" >
-                                <label for="item">List of items for sale (1 listing per line): </label>
+                                <label for="item">List of items for sale (List at least one item. Enter oneonly  item per line) * : </label>
                                 <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. books)" minlength="3" required />
                                 <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. bike)" minlength="3" />
                                 <input type="text" class="form-control itemlist" name="itemlist" placeholder="enter an item(e.g. appliances)" minlength="3" />
@@ -129,10 +130,10 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-4 centered">
-                                <button class="btn btn-warning" id="add-sale-btn"  type="Submit" name="action">Add Yard Sale</button>
+                                <button class="btn btn-secondary" id="add-sale-btn"  type="Submit" name="action">Add Yard Sale</button>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-4 centered">
-                                <button class="btn btn-info" id="clear-all-btn" type="button" >Clear All</button>
+                                <button class="btn btn-secondary" id="clear-all-btn" type="button" >Clear All</button>
                             </div>
                         </div> 
                     </form>

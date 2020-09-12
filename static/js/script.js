@@ -4,6 +4,7 @@ $(document).ready(function(){
      /* Initialize Menu burger button */
     $(".button-collapse").sideNav();
 
+
     /* Search and Clear buttons will change colors upon clicking any of the search or 'select' fields */
     $("#categorysearch").click(function(){
     $("#search-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
@@ -34,7 +35,18 @@ $(document).ready(function(){
     $("#search-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
     $("#clearsearch-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
     });
-    
+
+    /* Clicking on any form field will trigger the change in color for buttons */
+    $("#add-form").click(function(){
+    $("#add-sale-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
+    $("#clear-all-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
+    });
+
+    $("#update-form").click(function(){
+    $("#update-sale-btn").removeClass("btn btn-secondary").addClass("btn btn-info" );
+    $("#cancel-btn").removeClass("btn btn-secondary").addClass("btn btn-warning" );
+    });
+
 
     /* Click the 'Clear' button will reset fields and buttons */
     $("#clearsearch-btn").click(function(){
@@ -47,7 +59,8 @@ $(document).ready(function(){
     $('#search-form #lnamesearch').val('');
     });
 
-    $("#clear-all-btn").click(function(){    
+    /* Click the 'Clear' button will reset fields */
+    $("#clear-all-btn").click(function(){   
     $('#add-form input[type="text"]').val('');
     $('#add-form input[type="radio"]').val('');
     $('#add-form #email').val('');
@@ -55,9 +68,7 @@ $(document).ready(function(){
     $('#add-form #saletime').val('');
     $('#add-form #saledate').val('');
     $('#add-form input[type="radio"]').val('');
-     /*type="radio"*/
     });
-
 
     /* Code originally taken from fellow student project https://github.com/LibbyH52/Cookbook-App/blob/master/static/js/script.js and modified to fit my project */
     /* Dynamically add new item for sale to the Add Yard Sale form */
