@@ -38,9 +38,9 @@ The website's goal is to easily search, find and manage (add, edit or delete) of
 
 
 ### Demo
-A live demo can be found HERE
+A live demo can be found [HERE](https://watcha-selling.herokuapp.com/)
 
-GitHub repository link can be found HERE
+GitHub repository link can be found [HERE](https://github.com/EliBec/my--first-data-centric-development-milestone-project)
 
 ### UX
 

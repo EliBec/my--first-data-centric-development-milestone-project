@@ -123,7 +123,6 @@ def get_yardsales():
 def add_yardsales():
 
     record_status = request.args.get('record_status')
-    # print(record_status)
 
     countries = mongo.db.countries.find()
 
@@ -149,13 +148,10 @@ def insert_yardsale():
     # pass in the address (to get_google_coord) \
     # for which google coordinates are fetched from API's JSON
     google_coor = get_google_coord(full_addr)
-    # print(google_coor)
 
     addr_lat = google_coor[0]
-    # print(addr_lat)
 
     addr_long = google_coor[1]
-    # print(addr_long)
 
     itemlist_array = []
     itemlist_array = request.form.getlist('itemlist')
@@ -261,13 +257,10 @@ def save_yardsale(yardsale_id, record_status):
     # pass in the address (to get_google_coord) \
     # for which google coordinates are fetch from API's JSON
     google_coor = get_google_coord(full_addr)
-    print(google_coor)
 
     addr_lat = google_coor[0]
-    print(addr_lat)
 
     addr_long = google_coor[1]
-    print(addr_long)
 
     yardsales.update({'_id': ObjectId(yardsale_id)},
                      {
